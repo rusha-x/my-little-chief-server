@@ -1,0 +1,23 @@
+CREATE TABLE recipes
+(
+    _id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
+insertRecipes:
+INSERT INTO recipes (name, description)
+VALUES (:name, :description);
+
+updateRecipe:
+UPDATE recipes SET
+name = :name,
+description = :description
+WHERE _id = :_id;
+
+lastRecipeId:
+SELECT last_insert_rowid();
+
+selectRecipes:
+SELECT _id, name, description
+FROM recipes;

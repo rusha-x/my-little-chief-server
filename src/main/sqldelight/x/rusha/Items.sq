@@ -1,0 +1,10 @@
+CREATE TABLE items  (
+    _id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    count  REAL NOT NULL,
+    product_id  INTEGER NOT NULL REFERENCES products ON DELETE CASCADE,
+    basket_id  INTEGER NOT NULL REFERENCES baskets ON DELETE CASCADE
+);
+
+insertItem:
+INSERT INTO items (count, product_id,basket_id )
+VALUES (:count,:product_id,:basket_id );

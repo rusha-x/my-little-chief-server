@@ -1,0 +1,20 @@
+CREATE TABLE ingredients
+(
+    _id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    count_in_recipe REAL    NOT NULL,
+    product_id      INTEGER NOT NULL REFERENCES products ON DELETE CASCADE,
+    recipe_id       INTEGER NOT NULL REFERENCES recipes ON DELETE CASCADE
+);
+
+insertIngredients:
+INSERT INTO ingredients (count_in_recipe, product_id, recipe_id)
+VALUES (:count_in_recipe, :product_id, :recipe_id);
+
+selectIngredientsByRecipeId:
+SELECT _id, count_in_recipe, product_id
+FROM ingredients
+WHERE recipe_id = :recipe_id;
+
+deleteIngridientsByRecipeId:
+DELETE FROM ingredients
+WHERE recipe_id = :recipe_id;

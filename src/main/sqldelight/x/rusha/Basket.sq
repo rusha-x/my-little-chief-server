@@ -1,0 +1,10 @@
+CREATE TABLE baskets (
+ _id     INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+insertBaskets:
+INSERT INTO baskets DEFAULT VALUES;
+
+
+lastBasketId:
+SELECT last_insert_rowid();
