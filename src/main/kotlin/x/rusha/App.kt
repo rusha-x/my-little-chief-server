@@ -15,8 +15,8 @@ import java.io.File
 
 fun main() {
 
-    val driver: SqlDriver = JdbcSqliteDriver(url = "jdbc:sqlite:../MyLittleChief.db")
-    createSchema(driver)
+    val driver = initDriver()
+    updateSchema(driver)
 
     val db = LittleChiefDatabase(driver)
 
@@ -121,7 +121,16 @@ fun main() {
     }.start(wait = true)
 }
 
-private fun createSchema(driver: SqlDriver) {
+private fun initDriver(): SqlDriver {
+    val dbFile = File("./MyLittleChief.db")
+    if (!dbFile.exists()) {
+        val dbZygoteFile = File("./MyLittleChief.db.zygote")
+        dbZygoteFile.copyTo(dbFile)
+    }
+    return JdbcSqliteDriver(url = "jdbc:sqlite:${dbFile.absolutePath}")
+}
+
+private fun updateSchema(driver: SqlDriver) {
     val schemaVersionFile = File("./schema_version.txt")
     val schemaVersion = if (schemaVersionFile.exists()) {
         val versionString = schemaVersionFile.readText()
