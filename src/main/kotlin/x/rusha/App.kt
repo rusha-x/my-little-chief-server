@@ -20,7 +20,8 @@ fun main() {
 
     val db = LittleChiefDatabase(driver)
 
-    embeddedServer(Netty, port = 9999) {
+    val port = System.getenv("PORT").toInt()
+    embeddedServer(Netty, port = port) {
 
         install(ContentNegotiation) {
             json()
